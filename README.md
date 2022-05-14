@@ -4,7 +4,7 @@
 #### Request (find all)
 
 ```http
-  GET /api/Produto
+GET /api/Produto
 
   curl -X 'GET' \
   'https://localhost:7096/api/Produto' \
@@ -28,7 +28,7 @@
 #### Request (find by ID) 
 
 ```http
-  GET /api/Produto/GetById/${id}
+GET /api/Produto/GetById/${id}
   
   curl -X 'GET' \
   'https://localhost:7096/api/Produto/GetById?id=1' \
@@ -51,7 +51,7 @@
 
 #### Request (create new product) 
 ```http
-  POST /api/Produto
+POST /api/Produto
 
   curl -X 'POST' \
   'https://localhost:7096/api/Produto' \
@@ -79,7 +79,7 @@
 ```
 #### Change one exists product
 ```http
-  PUT /api/Produto
+PUT /api/Produto
 
 curl -X 'PUT' \
   'https://localhost:7096/api/Produto' \
