@@ -3,7 +3,6 @@
 
 Projeto de estudo, API em AspnetCore. 
 
-
 ## Documentação da API
 
 #### Request (find all)
@@ -126,4 +125,9 @@ curl -X 'DELETE' \
 ```http
 Produto 4 excluido com sucesso!
 ```
+
+
+## Autores
+
+- [@crislainecs](https://github.com/crislainecs)
 
