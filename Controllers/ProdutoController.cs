@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MinhaPrimeiraWebAPI.Data;
+using MinhaPrimeiraWebAPI.Data.DTO;
 using MinhaPrimeiraWebAPI.Entities;
 
 namespace MinhaPrimeiraWebAPI.Controllers
@@ -24,33 +25,45 @@ namespace MinhaPrimeiraWebAPI.Controllers
         public IActionResult GetAll()
         {
             var produtos = _context.Produtos.ToList();
-            return Ok(produtos);
+            var produtosDTO = produtos.Select(p => new ProdutoDTO
+            {
+                Id = p.Id,
+                Nome = p.Nome,
+                Marca = p.Marca
+            });
+            return Ok(produtosDTO);
         }
 
         [HttpPost]
 
-        public IActionResult Insert(Produto produto)
+        public IActionResult Insert(ProdutoDTO produtoDTO)
         {
+            var produto = new Produto 
+            {
+                Nome = produtoDTO.Nome,
+                Marca = produtoDTO.Nome
+            };
 
             _context.Produtos.Add(produto);
             _context.SaveChanges();
-            return Ok(produto);
+            produtoDTO.Id = produto.Id;
+            return Ok(produtoDTO);
         }
 
         [HttpPut]
 
-        public IActionResult Update(Produto produto)
+        public IActionResult Update(ProdutoDTO produtoDTO)
         {          
-            var produtoAlterado = _context.Produtos.FirstOrDefault(x => x.Id == produto.Id);
+            var produtoAlterado = _context.Produtos.FirstOrDefault(x => x.Id == produtoDTO.Id);
             if(produtoAlterado == null)
                 return NotFound();
             
-            produtoAlterado.Nome = produto.Nome;
-            produtoAlterado.Marca = produto.Marca;
+            produtoAlterado.Nome = produtoDTO.Nome;
+            produtoAlterado.Marca = produtoDTO.Marca;
 
             _context.Produtos.Update(produtoAlterado);
             _context.SaveChanges();
-            return Ok(produto);
+            return Ok(produtoDTO);
         }
 
         [HttpDelete]
@@ -73,7 +86,14 @@ namespace MinhaPrimeiraWebAPI.Controllers
             if(produto == null)
                 return NotFound();
 
-            return Ok(produto);
+            var produtoDTO = new ProdutoDTO 
+            {
+                Id = produto.Id,
+                Nome = produto.Nome,
+                Marca = produto.Marca
+            };
+
+            return Ok(produtoDTO);
         }
 
     }
